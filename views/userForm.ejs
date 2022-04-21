@@ -1,0 +1,25 @@
+<%- include('header.ejs') %>
+    <main>
+        <h1>Sign Up</h1>
+        <form action="" method="post">
+            <% if (signup) { %>
+                <div class="mb-3">
+                    <input class="form-control" type="text" name="firstName" id="firstName" placeholder="First Name (Optional)">
+                </div>
+                <div class="mb-3">
+                    <input class="form-control" type="text" name="lastName" id="lastName" placeholder="Last Name (Optional)">
+                </div>
+            <% } %>
+            <div class="mb-3">
+                <input class="form-control" type="text" name="username" id="username" placeholder="Username" required>
+            </div>
+            <div class="mb-3">
+                <input class="form-control" type="password" name="password1" id="password1" placeholder="Password" required>
+            </div>
+            <div class="mb-3">
+                <input class="form-control" type="password" name="password2" id="password2" placeholder="Confirm Password" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>  
+    </main>
+<%- include('footer.ejs') %>

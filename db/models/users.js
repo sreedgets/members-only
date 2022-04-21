@@ -3,8 +3,8 @@ const Schema = mongoose.Schema;
 
 const UserSchema = new Schema(
     {
-        firstName: {type: String, minLength: 1, maxLength: 50, required: true},
-        lastName: {type: String, minLength: 1, maxLength: 50, required: true},
+        firstName: {type: String, minLength: 1, maxLength: 50},
+        lastName: {type: String, minLength: 1, maxLength: 50},
         username: {type: String, minLength: 1, maxLength: 50, required: true},
         password: {type: String, minLength: 5, required: true},
         memberStatus: {type: String, required: true}
@@ -14,6 +14,13 @@ const UserSchema = new Schema(
 UserSchema
     .virtual('fullName')
     .get(function() {
+        if (!this.firstName) {
+            this.firstName = '';
+        }
+
+        if (!this.lastName) {
+            this.lastName = '';
+        }
         return `${this.firstName} ${this.lastName}`;
     });
 

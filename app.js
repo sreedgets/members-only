@@ -4,9 +4,12 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 require('./db/conn');
+const session = require("express-session");
+const passport = require("passport");
+require('./auth/authenticate');
 
 //Routers
-var indexRouter = require('./routes/index');
+var indexRouter = require('./routes/indexRouter');
 
 var app = express();
 
@@ -16,7 +19,7 @@ app.set('view engine', 'ejs');
 
 //Locals
 const globalUser = (req, res, next) => {
-  res.locals.user = '';
+  res.locals.user = req.user;
   next();
 }
 
@@ -26,13 +29,23 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(globalUser);
+
+//Authentication middleware
+app.use(session({
+    secret: process.env.SECRET || 'janetreno',
+    resave: false,
+    saveUninitialized: true
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(globalUser); //Set current user as a local variable so you dont have to set it manually. This middleware must be used after passport init.
 
 // Add bootstrap to app
 app.use("/css", express.static(path.join(__dirname, "node_modules/bootstrap/dist/css")));
 app.use("/js", express.static(path.join(__dirname, "node_modules/bootstrap/dist/js")));
 app.use("/js", express.static(path.join(__dirname, "node_modules/jquery/dist")));
 
+//Routes
 app.use('/', indexRouter);
 
 // catch 404 and forward to error handler

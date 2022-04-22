@@ -5,18 +5,26 @@ const {
     signupGet,
     signupPost,
     loginGet,
-    loginPost
+    loginPost,
+    handleSignout
 } = require('../controllers/indexController');
+
+const {
+    signupValidation
+} = require('../helpers/validator');
 
 /* GET home page. */
 router.get('/', index);
 
+//Get the signup page
 router.get('/signup', signupGet);
 
-router.post('/signup', signupPost);
+router.post('/signup', signupValidation, signupPost);
 
 router.get('/login', loginGet);
 
 router.post('/login', loginPost);
+
+router.get('/signout', handleSignout);
 
 module.exports = router;

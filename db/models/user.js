@@ -3,8 +3,8 @@ const Schema = mongoose.Schema;
 
 const UserSchema = new Schema(
     {
-        firstName: {type: String, minLength: 1, maxLength: 50},
-        lastName: {type: String, minLength: 1, maxLength: 50},
+        firstName: {type: String, maxLength: 50},
+        lastName: {type: String, maxLength: 50},
         username: {type: String, minLength: 1, maxLength: 50, required: true},
         password: {type: String, minLength: 5, required: true},
         memberStatus: {type: String, required: true}

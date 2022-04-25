@@ -15,7 +15,7 @@ exports.signupPost = (req, res, next) => {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-        console.log(errors);
+        console.log(errors); //for development
         res.render('userForm', {title: 'Members Only | Sign Up', signup: true, errors: errors});
     } else {
         const user = new User({

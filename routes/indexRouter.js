@@ -6,12 +6,18 @@ const {
     signupPost,
     loginGet,
     loginPost,
-    handleSignout
+    handleSignout,
+    messagePost,
+    messageGet
 } = require('../controllers/indexController');
 
 const {
     signupValidation
 } = require('../helpers/validator');
+
+const {
+    catchUnauthorizedRequest
+} = require('../helpers/utils');
 
 /* GET home page. */
 router.get('/', index);
@@ -26,5 +32,9 @@ router.get('/login', loginGet);
 router.post('/login', loginPost);
 
 router.get('/signout', handleSignout);
+
+router.get('/message', catchUnauthorizedRequest, messageGet);
+
+router.post('/message', catchUnauthorizedRequest, messagePost);
 
 module.exports = router;
